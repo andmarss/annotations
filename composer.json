@@ -1,0 +1,10 @@
+{
+    "name": "user/symfony-react",
+    "authors": [
+        {
+            "name": "Марков Андрей Игоревич",
+            "email": "anrey-markov@mail.ru"
+        }
+    ],
+    "require": {}
+}

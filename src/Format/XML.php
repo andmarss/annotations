@@ -2,7 +2,7 @@
 
 namespace App\Format;
 
-class XML extends BaseFormat {
+class XML extends BaseFormat implements FormatInterface{
 
     public function convert(): string
     {
@@ -16,6 +16,11 @@ class XML extends BaseFormat {
         }
 
         return htmlspecialchars($result);
+    }
+
+    public function setData(array $data): void
+    {
+       $this->data = $data;
     }
 
 }

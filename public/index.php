@@ -4,7 +4,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 use App\Format\{JSON,XML,YAML};
 use \App\Controller\IndexController;
 use \App\Container;
-use \App\Serializer;
+use \App\Service\Serializer;
+use \App\Format\FormatInterface;
 
 $data = [
     'name' => 'John',
@@ -26,15 +27,20 @@ $container->addService('format.xml', function () use ($container){
 });
 
 $container->addService('format', function () use ($container){
-    $container->getService('format.json');
-});
+    return $container->getService('format.xml');
+}, FormatInterface::class);
 
-$container->addService('serializer', function () use ($container){
-    return new Serializer($container->getService('format'));
-});
+//$container->addService('serializer', function () use ($container){
+//    return new Serializer($container->getService('format'));
+//});
+//
+//$container->addService('controller.index', function () use ($container){
+//    return new IndexController($container->getService('serializer'));
+//});
 
-$container->addService('controller.index', function () use ($container){
-    return new IndexController($container->getService('serializer'));
-});
+$container->loadServices('App\\Service');
+$container->loadServices('App\\Controller');
 
-var_dump($container);
+var_dump($container->getServices());
+print_r($container->getService('App\\Controller\\IndexController', true)->index());
+print_r($container->getService('App\\Controller\\PostController', true)->index());

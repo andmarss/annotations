@@ -59,7 +59,7 @@ class Container
         ];
     }
 
-    public function loadServices(string $namespace): void
+    public function loadServices(string $namespace, ?\Closure $callback = null): void
     {
         $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
 
@@ -108,6 +108,10 @@ class Container
 
                 return new $serviceName(...$serviceParameters);
             });
+
+            if($callback && is_callable($callback)) {
+                $callback($serviceName, $class);
+            }
         }
     }
 }

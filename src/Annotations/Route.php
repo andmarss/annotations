@@ -5,6 +5,8 @@ namespace App\Annotations;
 
 /**
  * @Annotation
+ *
+ * @property string $route
  */
 class Route
 {
